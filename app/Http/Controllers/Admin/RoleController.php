@@ -35,11 +35,11 @@ class RoleController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function show($id)
     {
-        //
+        return $this->response(AdminRoleService::getOne($id));
     }
 
     /**

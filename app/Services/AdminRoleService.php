@@ -25,4 +25,10 @@ class AdminRoleService extends BaseService
         };
         return self::inTransaction($commit, ResponseMessage::$DATABASE_SAVE_ERROR);
     }
+
+    # 获取单个角色
+    public static function getOne($id)
+    {
+        return ReturnCorrect(AdminRole::query()->find($id));
+    }
 }
