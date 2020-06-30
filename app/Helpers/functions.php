@@ -11,7 +11,7 @@ if (!function_exists('ReturnAPI')) {
      */
     function ReturnAPI(array $obj = [], string $msg = '', $data = ''): array
     {
-        if (empty($obj)) $obj = ResponseMessage::$API_PARAM_ERROR;
+        if (empty($obj)) $obj = ResponseMessage::API_PARAM_ERROR;
         return array(
             'data' => $data,
             'error' => array(
@@ -31,6 +31,6 @@ if (!function_exists('ReturnCorrect')) {
      */
     function ReturnCorrect($data = '', $msg = ''): array
     {
-        return ReturnAPI(ResponseMessage::$API_RETURN_SUCCESS, $msg, $data);
+        return ReturnAPI(ResponseMessage::API_RETURN_SUCCESS, $msg, $data);
     }
 }

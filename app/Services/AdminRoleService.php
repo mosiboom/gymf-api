@@ -23,7 +23,7 @@ class AdminRoleService extends BaseService
             if (isset($data['permissions'])) AdminRolePermission::add($role->id, $data['permissions']);
             return $role;
         };
-        return self::inTransaction($commit, ResponseMessage::$DATABASE_SAVE_ERROR);
+        return self::inTransaction($commit, ResponseMessage::DATABASE_SAVE_ERROR);
     }
 
     # 获取单个角色

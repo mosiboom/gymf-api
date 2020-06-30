@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('roles', 'Admin\RoleController');
 Route::get('test', function () {
-    $role = \App\Models\Admin\AdminRolePermission::add(1, [1, 2, 3]);
-    dump($role);
+    $abc = new \App\Services\AuthService('admin', 1);
+    dump($abc->generateGroup());
 });
+Route::get('test1', function () {
+    $abc = new \App\Services\AuthService('admin', 1);
+    dump($abc->generateGroup());
+})->middleware('admin.auth');

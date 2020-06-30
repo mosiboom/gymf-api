@@ -23,6 +23,6 @@ class FormRequest extends BaseFormRequest
     public function failedValidation(Validator $validator)
     {
         $error = $validator->errors()->first();
-        throw new HttpResponseException(response()->json(ReturnAPI(ResponseMessage::$API_PARAM_ERROR, $error)));
+        throw new HttpResponseException(response()->json(ReturnAPI(ResponseMessage::API_PARAM_ERROR, $error)));
     }
 }
