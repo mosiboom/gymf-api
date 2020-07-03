@@ -22,5 +22,6 @@ class ResponseMessage
     const TOKEN_JTI_ERROR = ['code' => 6007, 'msg' => 'jti有误'];
     const TOKEN_TYPE_ERROR = ['code' => 6008, 'msg' => 'token类型有误!'];
     const TOKEN_ISS_ERROR = ['code' => 6009, 'msg' => 'token身份有误!'];
+    const NAME_OR_PWD_ERROR = ['code' => 6010, 'msg' => '用户名或密码错误！'];
 
 }

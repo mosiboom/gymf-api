@@ -45,13 +45,13 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param RoleRequest $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        //
+        return $this->response(AdminRoleService::save($request->all(), $id));
     }
 
     /**

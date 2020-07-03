@@ -19,11 +19,20 @@ class AdminRoleService extends BaseService
     {
         # 涉及到事务
         $commit = function () use ($data) {
-            $role = AdminRole::add($data);
+            $role = AdminRole::query()->create(['name' => $data['name'], 'slug' => $data['slug']]);
             if (isset($data['permissions'])) AdminRolePermission::add($role->id, $data['permissions']);
             return $role;
         };
-        return self::inTransaction($commit, ResponseMessage::DATABASE_SAVE_ERROR);
+        return self::inTransaction($commit);
+    }
+
+    # 修改角色
+    public static function save($data, $id)
+    {
+        $role = AdminRole::query()->find($id);
+        $role->save(['name' => $data['name'], 'slug' => $data['slug']]);
+        if (isset($data['permissions'])) AdminRolePermission::add($role->id, $data['permissions']);
+        return $role;
     }
 
     # 获取单个角色

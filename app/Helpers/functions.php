@@ -34,3 +34,21 @@ if (!function_exists('ReturnCorrect')) {
         return ReturnAPI(ResponseMessage::API_RETURN_SUCCESS, $msg, $data);
     }
 }
+
+if (!function_exists('checkEmptyArray')) {
+    function checkEmptyArray($array, $key = [])
+    {
+        if (empty($array) || !is_array($array) || !is_array($key)) {
+            return false;
+        }
+        $bool = true;
+        if (empty($key)) $key = array_keys($array);
+        foreach ($key as $kv) {
+            if (!isset($array[$kv]) || empty($array[$kv])) {
+                $bool = false;
+                break;
+            }
+        }
+        return $bool;
+    }
+}
