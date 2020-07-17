@@ -14,25 +14,25 @@ class AdminAuthentication
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        /*获取token先在.htaccess中加入 SetEnvIf Authorization ^(.*) HTTP_AUTHORIZATION=$1 */
+        /*Apache 获取token先在.htaccess中加入 SetEnvIf Authorization ^(.*) HTTP_AUTHORIZATION=$1 */
         /* 判断有没有Authorization头 */
         $Auth = Request::header('Authorization');
         if (!$Auth) {
-            return response(ReturnAPI(ResponseMessage::LOGIN_ERROR));
+            return response(ReturnAPI(ResponseMessage::LOGIN_ERROR))->setStatusCode(401);
         }
         $Authorization = new AuthService('admin');
         $token = $Authorization->getFinalToken($Auth);
         if (!$token) {
-            return response(ReturnAPI(ResponseMessage::LOGIN_ERROR));
+            return response(ReturnAPI(ResponseMessage::LOGIN_ERROR))->setStatusCode(401);
         }
         $result = $Authorization->verifyAccess($token);
         if (!$result['token']) {
-            return response(ReturnAPI($result['code']));
+            return response(ReturnAPI($result['code']))->setStatusCode(401);
         }
         $info = $result['payload']['uid'];
         $request->payload = $info;

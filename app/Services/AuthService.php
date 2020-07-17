@@ -108,14 +108,14 @@ class AuthService
 
         $data = array_merge(
             array(
-            'iss' => $this->conf['secret_user'], //该JWT的签发者
-            'iat' => time(), //签发时间
-            'exp' => time() + $exp, //过期时间
-            //'nbf' => time() + 10, //该时间之前不接收处理该Token
-            'uid' => $this->uid,
-            'type' => $type,
-            'jti' => $jti   //该token的id
-        ), $data);
+                'iss' => $this->conf['secret_user'], //该JWT的签发者
+                'iat' => time(), //签发时间
+                'exp' => time() + $exp, //过期时间
+                //'nbf' => time() + 10, //该时间之前不接收处理该Token
+                'uid' => $this->uid,
+                'type' => $type,
+                'jti' => $jti   //该token的id
+            ), $data);
         return $data;
     }
 
@@ -204,6 +204,9 @@ class AuthService
     /*获取http请求头 Bearer token*/
     public function getFinalToken(string $token)
     {
+        if (strpos($token, 'Bearer ') === false) {
+            return false;
+        }
         return trim(str_replace("Bearer", "", $token));
     }
 

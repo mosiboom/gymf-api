@@ -3,64 +3,65 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RoleRequest;
-use App\Services\Admin\RoleService;
+use App\Http\Requests\Admin\PermissionRequest;
+use App\Services\Admin\PermissionService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return array|JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return $this->response(RoleService::list());
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param RoleRequest $request
-     * @return array|JsonResponse
+     * @param PermissionRequest $request
+     * @return JsonResponse
      */
-    public function store(RoleRequest $request)
+    public function store(PermissionRequest $request)
     {
-        return $this->response(RoleService::save($request->all()));
+        return $this->response(PermissionService::save($request->all()));
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return $this->response(RoleService::getOne($id));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param RoleRequest $request
+     * @param PermissionRequest $request
      * @param int $id
      * @return JsonResponse
      */
-    public function update(RoleRequest $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
-        return $this->response(RoleService::save($request->all(), $id));
+        return $this->response(PermissionService::save($request->all(), $id));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        return $this->response($id);
+        //
     }
 }

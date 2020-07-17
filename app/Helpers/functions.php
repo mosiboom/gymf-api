@@ -52,3 +52,12 @@ if (!function_exists('checkEmptyArray')) {
         return $bool;
     }
 }
+
+/*
+ * 生成毫秒级时间戳
+ * */
+function getMillisecond()
+{
+    list($t1, $t2) = explode(' ', microtime());
+    return (float)sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
+}

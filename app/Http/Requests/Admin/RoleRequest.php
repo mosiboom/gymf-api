@@ -19,10 +19,18 @@ class RoleRequest extends FormRequest
                 return [
                     'name' => 'required|unique:admin_roles|max:50',
                     'slug' => 'required|unique:admin_roles|max:50',
+                    'permissions' => 'array'
                 ];
             }
             case 'PUT':
             case 'PATCH':
+            {
+                return [
+                    'name' => 'required|max:50',
+                    'slug' => 'required|max:50',
+                    'permissions' => 'array',
+                ];
+            }
             case 'DELETE':
             default:
             {
@@ -40,7 +48,8 @@ class RoleRequest extends FormRequest
             'name.max' => '角色名长度超出限制',
             'slug.required' => '标识必须填写',
             'slug.unique' => '标识已存在',
-            'slug.max' => '角色名长度超出限制',
+            'slug.max' => '标识长度超出限制',
+            'permissions.array' => '权限格式有误'
         ];
     }
 }

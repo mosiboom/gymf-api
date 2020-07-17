@@ -5,17 +5,17 @@ use App\Enums\ResponseMessage;
 return [
     /*用户*/
     'user' => [
-        'secret_key' => 'vhJcUExrBL5q6kWW"',//Str::random()生成
-        'secret_user' => 'Jasper_User',
-        'access_token_expire_time' => 7200,//access_token过期时间
-        'refresh_token_expire_time' => 86400,//refresh_token过期时间
+        'secret_key' => 'vhJcUExrBL5q6kWW"',        #Str::random()生成
+        'secret_user' => 'Jasper_User',             #使用者
+        'access_token_expire_time' => 7200,         #access_token过期时间
+        'refresh_token_expire_time' => 86400,       #refresh_token过期时间
     ],
     /*管理员*/
     'admin' => [
-        'secret_key' => 'IlzzMTZAX6tycbkM',//Str::random()生成
-        'secret_user' => 'Jasper_Admin',
-        'access_token_expire_time' => 5,//access_token过期时间
-        'refresh_token_expire_time' => 86400,//refresh_token过期时间
+        'secret_key' => 'IlzzMTZAX6tycbkM',         #Str::random()生成
+        'secret_user' => 'Jasper_Admin',            #使用者
+        'access_token_expire_time' => 86400,        #access_token过期时间
+        'refresh_token_expire_time' => 86400,       #refresh_token过期时间
     ],
     /*返回码定义*/
     'code' => [

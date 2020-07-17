@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +45,7 @@ class BaseModel extends Model
             $updateColumn = array_keys($firstRow);
             // 默认以id为条件更新，如果没有ID则以第一个字段为条件
             $referenceColumn = isset($firstRow['id']) ? 'id' : current($updateColumn);
+            dump($referenceColumn);
             unset($updateColumn[0]);
             // 拼接sql语句
             $updateSql = "UPDATE " . $tableName . " SET ";
@@ -65,6 +66,8 @@ class BaseModel extends Model
             $bindings = array_merge($bindings, $whereIn);
             $whereIn = rtrim(str_repeat('?,', count($whereIn)), ',');
             $updateSql = rtrim($updateSql, ", ") . " WHERE `" . $referenceColumn . "` IN (" . $whereIn . ")";
+            dump($updateSql);
+            dump($bindings);
             // 传入预处理sql语句和对应绑定数据
             return DB::update($updateSql, $bindings);
         } catch (\Exception $e) {
