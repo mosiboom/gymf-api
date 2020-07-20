@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\ResponseMessage;
+use App\Enums\ResponseMessageEnum;
 
 if (!function_exists('ReturnAPI')) {
     /**返回接口格式定义
@@ -11,15 +11,15 @@ if (!function_exists('ReturnAPI')) {
      */
     function ReturnAPI(array $obj = [], string $msg = '', $data = ''): array
     {
-        if (empty($obj)) $obj = ResponseMessage::API_PARAM_ERROR;
-        return array(
+        if (empty($obj)) $obj = ResponseMessageEnum::API_PARAM_ERROR;
+        return [
             'data' => $data,
-            'error' => array(
+            'error' => [
                 'code' => $obj['code'],
                 'msg' => $msg == '' ? $obj['msg'] : $msg,
                 'sequence' => time()
-            )
-        );
+            ]
+        ];
     }
 }
 if (!function_exists('ReturnCorrect')) {
@@ -31,10 +31,9 @@ if (!function_exists('ReturnCorrect')) {
      */
     function ReturnCorrect($data = '', $msg = ''): array
     {
-        return ReturnAPI(ResponseMessage::API_RETURN_SUCCESS, $msg, $data);
+        return ReturnAPI(ResponseMessageEnum::API_RETURN_SUCCESS, $msg, $data);
     }
 }
-
 if (!function_exists('checkEmptyArray')) {
     function checkEmptyArray($array, $key = [])
     {
@@ -52,12 +51,14 @@ if (!function_exists('checkEmptyArray')) {
         return $bool;
     }
 }
-
-/*
- * 生成毫秒级时间戳
- * */
-function getMillisecond()
-{
-    list($t1, $t2) = explode(' ', microtime());
-    return (float)sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
+if (!function_exists('getMillisecond')) {
+    /*
+     * 生成毫秒级时间戳
+     * */
+    function getMillisecond()
+    {
+        list($t1, $t2) = explode(' ', microtime());
+        return (float)sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
+    }
 }
+

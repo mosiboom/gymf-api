@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 
 class AuthService
 {
@@ -210,7 +209,7 @@ class AuthService
         return trim(str_replace("Bearer", "", $token));
     }
 
-    /*代理token（扩展）*/
+    /*代理token（扩展）todo*/
     public function OauthToken()
     {
         $token = $this->generateGroup();
@@ -223,24 +222,17 @@ class AuthService
     }
 
     /*获取token解析后的id*/
-    public function getUserIdByToken()
+    public static function getUserIdFromRequest()
     {
-        $Auth = request()->header('Authorization');
+        return request()->offsetGet('payload');
+    }
 
-        if (!$Auth) {
-            return null;
-        }
-
-        $token = $this->getFinalToken($Auth);
-        if (!$token) {
-            return null;
-        }
-        $result = $this->verifyAccess($token);
-
-        if (!$result['token']) {
-            return null;
-        }
-        return $result['payload']['uid'];
+    /*
+     * 塞入token解析后的id
+     * */
+    public static function setUserIdFromRequest($uid)
+    {
+        request()->offsetSet('payload', $uid);
     }
 
 }

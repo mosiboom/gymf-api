@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\ResponseMessage;
+use App\Enums\ResponseMessageEnum;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -32,6 +32,6 @@ class FormRequest extends BaseFormRequest
     public function failedValidation(Validator $validator)
     {
         $error = $validator->errors()->first();
-        throw new HttpResponseException(response()->json(ReturnAPI(ResponseMessage::API_PARAM_ERROR, $error)));
+        throw new HttpResponseException(response()->json(ReturnAPI(ResponseMessageEnum::API_PARAM_ERROR, $error)));
     }
 }

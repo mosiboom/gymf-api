@@ -2,7 +2,7 @@
 
 namespace App\Network;
 
-use App\Enums\ResponseMessage;
+use App\Enums\ResponseMessageEnum;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Log;
@@ -127,7 +127,7 @@ class Guzzle implements Base
     public function returnError(RequestException $e, $url, $param)
     {
         Log::error("服务器内部请求出现错误:{$e->getCode()} - {$e->getMessage()}", ["param" => $param, 'url' => $url]);
-        return ReturnAPI(ResponseMessage::SERVER_ERROR);
+        return ReturnAPI(ResponseMessageEnum::SERVER_ERROR);
     }
 
     private function returnResult($code, $content)

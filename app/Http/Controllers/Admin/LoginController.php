@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\ResponseMessage;
+use App\Enums\ResponseMessageEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class LoginController extends Controller
         $param = ['username', 'password'];
         $form = $request->only($param);
         if (!checkEmptyArray($form, $param)) {
-            return ReturnAPI(ResponseMessage::LOGIN_ERROR);
+            return ReturnAPI(ResponseMessageEnum::LOGIN_ERROR);
         }
         //todo 数据库验证用户名密码
         return ReturnCorrect();

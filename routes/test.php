@@ -1,6 +1,7 @@
 <?php
 
 use App\Network\CURL;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,9 +12,7 @@ Route::get('1', function () {
     dump($abc->generateGroup());
 });
 Route::get('2', function () {
-    $abc = new \App\Services\AuthService('admin', 1);
-    dump($abc->generateGroup());
-    dump($abc->getUserIdByToken());
+    return ReturnCorrect(AuthService::getUserIdFromRequest());
 })->middleware('admin.auth');
 Route::get('3', function () {
     $routes = Route::getRoutes()->get();
@@ -44,12 +43,10 @@ Route::get('4', function () {
 
 Route::get('5', function (Request $request) {
     $network = new CURL("http://admin.manage.com");
-    $result1 = $network->get('/test/curl', ['a' => 1, 'b' => 2]);
-    $result2 = $network->post('/test/curl', ['a' => 1, 'b' => 2]);
-    $result3 = $network->patch('/test/curl', ['a' => 1, 'b' => 2]);
-    $result4 = $network->put('/test/curl', ['a' => 1, 'b' => 2]);
-    $result5 = $network->delete('/test/curl', ['a' => 1, 'b' => 2]);
-    dump($result1, $result2, $result3, $result4, $result5);
+    $token = new AuthService('admin', 'user_id1');
+    $access_token = $token->generateAccess()['token'];
+    $result1 = $network->debug()->setHeader(['authorization' => "Bearer $access_token"])->get('/test/2', ['a' => 1, 'b' => 2]);
+    dump($result1);
 });
 Route::get('6', function (Request $request) {
     $network = new App\Network\CURL("http://www.baidu.com");

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Enums;
-class ResponseMessage
+class ResponseMessageEnum
 {
     const API_RETURN_SUCCESS = ['code' => 0, 'msg' => '接口返回成功'];
     const API_PARAM_ERROR = ['code' => 1001, 'msg' => '接口参数有误'];

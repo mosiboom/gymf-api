@@ -2,7 +2,7 @@
 
 namespace App\Services\Admin;
 
-use App\Enums\ResponseMessage;
+use App\Enums\ResponseMessageEnum;
 use App\Models\Admin\AdminPermission;
 use App\Services\BaseService;
 use Illuminate\Database\QueryException;
@@ -35,7 +35,7 @@ class PermissionService extends BaseService
         } catch (QueryException $exception) {
             Log::channel('database')->error($exception->getMessage());
         }
-        return ReturnAPI(ResponseMessage::DATABASE_SAVE_ERROR);
+        return ReturnAPI(ResponseMessageEnum::DATABASE_SAVE_ERROR);
     }
 
 }

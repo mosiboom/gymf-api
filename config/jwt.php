@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\ResponseMessage;
+use App\Enums\ResponseMessageEnum;
 
 return [
     /*用户*/
@@ -19,16 +19,16 @@ return [
     ],
     /*返回码定义*/
     'code' => [
-        0 => ResponseMessage::API_RETURN_SUCCESS,
-        1 => ResponseMessage::HEADER_ERROR,
-        2 => ResponseMessage::SIGN_ERROR,
-        3 => ResponseMessage::ISSUE_ERROR,
-        4 => ResponseMessage::TOKEN_EXPIRE_ERROR,
-        5 => ResponseMessage::TOKEN_NBF_ERROR,
-        6 => ResponseMessage::TOKEN_FORMAT_ERROR,
-        7 => ResponseMessage::TOKEN_JTI_ERROR,
-        8 => ResponseMessage::TOKEN_TYPE_ERROR,
-        9 => ResponseMessage::TOKEN_ISS_ERROR
+        0 => ResponseMessageEnum::API_RETURN_SUCCESS,
+        1 => ResponseMessageEnum::HEADER_ERROR,
+        2 => ResponseMessageEnum::SIGN_ERROR,
+        3 => ResponseMessageEnum::ISSUE_ERROR,
+        4 => ResponseMessageEnum::TOKEN_EXPIRE_ERROR,
+        5 => ResponseMessageEnum::TOKEN_NBF_ERROR,
+        6 => ResponseMessageEnum::TOKEN_FORMAT_ERROR,
+        7 => ResponseMessageEnum::TOKEN_JTI_ERROR,
+        8 => ResponseMessageEnum::TOKEN_TYPE_ERROR,
+        9 => ResponseMessageEnum::TOKEN_ISS_ERROR
     ],
     /*缓存前缀key定义*/
     'cache_key' => [

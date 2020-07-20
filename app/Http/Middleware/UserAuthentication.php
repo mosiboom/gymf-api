@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\ResponseMessage;
+use App\Enums\ResponseMessageEnum;
 use App\Services\AuthService;
 use Closure;
 use Illuminate\Support\Facades\Request;
@@ -23,12 +23,12 @@ class UserAuthentication
         $Auth = Request::header('Authorization');
 
         if (!$Auth) {
-            return response(ReturnAPI(ResponseMessage::LOGIN_ERROR));
+            return response(ReturnAPI(ResponseMessageEnum::LOGIN_ERROR));
         }
         $Authorization = new AuthService('user');
         $token = $Authorization->getFinalToken($Auth);
         if (!$token) {
-            return response(ReturnAPI(ResponseMessage::LOGIN_ERROR));
+            return response(ReturnAPI(ResponseMessageEnum::LOGIN_ERROR));
         }
         $result = $Authorization->verifyAccess($token);
         if (!$result['token']) {

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Enums\ResponseMessage;
+use App\Enums\ResponseMessageEnum;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -16,7 +16,7 @@ class BaseService
      * @param string $error_message 自定义的错误消息
      * @return array
      */
-    public static function inTransaction($commit, $rollbackMessage = ResponseMessage::DATABASE_SAVE_ERROR, $error_message = '')
+    public static function inTransaction($commit, $rollbackMessage = ResponseMessageEnum::DATABASE_SAVE_ERROR, $error_message = '')
     {
         DB::beginTransaction();
         try {
