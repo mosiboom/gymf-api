@@ -49,8 +49,7 @@ Route::get('5', function (Request $request) {
     dump($result1);
 });
 Route::get('6', function (Request $request) {
-    $network = new App\Network\CURL("http://www.baidu.com");
-    dump($network->get(''));
+    echo 1;
 });
 /*测试CURL*/
 Route::get('curl', function (Request $request) {
@@ -82,4 +81,44 @@ Route::patch('curl', function (Request $request) {
         'method' => $request->method(),
         'param' => $request->all()
     ]));
+});
+/*测试内部接口*/
+Route::post('api', function (Request $request) {
+    $param = $request->post('param', []);
+    $url = $request->post('url', '');
+    $header = $request->post('header', []);
+    $method = $request->post('method', []);
+    if (!$url) return response()->json('需要填写请求接口！');
+    $network = new App\Network\CURL();
+    switch ($method) {
+        case 'POST':
+        {
+            $result = $network->setHeader($header ?? [])->post($url, $param ?? []);
+            break;
+        }
+        case 'PUT':
+        {
+            $result = $network->setHeader($header ?? [])->put($url, $param ?? []);
+            break;
+        }
+        case 'PATCH':
+        {
+            $result = $network->setHeader($header ?? [])->patch($url, $param ?? []);
+            break;
+        }
+        case 'DELETE':
+        {
+            $result = $network->setHeader($header ?? [])->delete($url, $param ?? []);
+            break;
+        }
+        default:
+        {
+            $result = $network->setHeader($header ?? [])->get($url, $param ?? []);
+            break;
+        }
+    }
+    return response()->json($result);
+});
+Route::get('api', function () {
+    return view('testApi');
 });
