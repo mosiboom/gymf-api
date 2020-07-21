@@ -26,7 +26,6 @@ class CURL implements Base
      * GET方式发起请求
      * @param string $url 请求的URL
      * @param array $param 请求参数
-     * @param array $config 请求配置
      * @return array
      */
     public function get(string $url, array $param = []): array
@@ -46,7 +45,6 @@ class CURL implements Base
      * POST方式发起请求
      * @param string $url 请求的URL
      * @param array $param 请求参数
-     * @param array $config 请求配置
      * @return array
      */
     public function post($url, $param = []): array
@@ -60,7 +58,6 @@ class CURL implements Base
      * PUT方式发起请求
      * @param string $url 请求的URL
      * @param array $param 请求参数
-     * @param array $config 请求配置
      * @return array
      */
     public function put($url, $param = []): array
@@ -74,7 +71,6 @@ class CURL implements Base
      * DELETE方式发起请求
      * @param string $url 请求的URL
      * @param array $param 请求参数
-     * @param array $config 请求配置
      * @return array
      */
     public function delete($url, $param = []): array
@@ -88,7 +84,6 @@ class CURL implements Base
      * PATCH方式发起请求
      * @param string $url 请求的URL
      * @param array $param 请求参数
-     * @param array $config 请求配置
      * @return array
      */
     public function patch($url, $param = []): array
