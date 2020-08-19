@@ -24,7 +24,7 @@ return [
         2 => ResponseMessageEnum::SIGN_ERROR,
         3 => ResponseMessageEnum::ISSUE_ERROR,
         4 => ResponseMessageEnum::TOKEN_EXPIRE_ERROR,
-        5 => ResponseMessageEnum::TOKEN_NBF_ERROR,
+        5 => ResponseMessageEnum::TOKEN_INVALID,
         6 => ResponseMessageEnum::TOKEN_FORMAT_ERROR,
         7 => ResponseMessageEnum::TOKEN_JTI_ERROR,
         8 => ResponseMessageEnum::TOKEN_TYPE_ERROR,

@@ -125,12 +125,7 @@ class AuthService
      */
     public function verifyAccess(string $access_token)
     {
-        $res = JwtTokenService::verifyToken($access_token, $this->conf['secret_key'], $this->conf['secret_user'], self::ACCESS);
-        if ($res['code'] == 0) {
-            return ['token' => $access_token, 'code' => $this->error_code[$res['code']], 'payload' => $res['payload']];
-        }
-        # 输出对应错误代码
-        return ['token' => false, 'code' => $this->error_code[$res['code']]];
+        return $this->verify($access_token, self::ACCESS);
     }
 
     /**
@@ -140,13 +135,25 @@ class AuthService
      */
     public function verifyRefresh(string $refresh_token)
     {
-        $res = JwtTokenService::verifyToken($refresh_token, $this->conf['secret_key'], $this->conf['secret_user'], self::REFRESH);
+        return $this->verify($refresh_token, self::REFRESH);
+    }
+
+    public function verify(string $token, $type)
+    {
+        # 校验token合法性
+        $res = JwtTokenService::verifyToken($token, $this->conf['secret_key'], $this->conf['secret_user'], $type);
         if ($res['code'] == 0) {
-            return ['token' => $refresh_token, 'code' => $this->error_code[$res['code']], 'payload' => $res['payload']];
+            # 查看黑名单中是否存在
+            $check_blacklist = $this->getBlacklist($res['payload']['jti']);
+            if ($check_blacklist) {
+                return ['token' => false, 'code' => $this->error_code[5]];
+            }
+            return ['token' => $token, 'code' => $this->error_code[$res['code']], 'payload' => $res['payload']];
         }
         # 输出对应错误代码
         return ['token' => false, 'code' => $this->error_code[$res['code']]];
     }
+
 
     /**
      * 验证token 失败返回false,成功返回原/新access_token
@@ -224,15 +231,48 @@ class AuthService
     /*获取token解析后的id*/
     public static function getUserIdFromRequest()
     {
-        return request()->offsetGet('payload');
+        return request()->offsetGet('payload_uid');
+    }
+
+    /*获取token解析后的id*/
+    public static function getJtiFromRequest()
+    {
+        return request()->offsetGet('payload_jti');
     }
 
     /*
      * 塞入token解析后的id
      * */
-    public static function setUserIdFromRequest($uid)
+    public static function setUserFromRequest($payload)
     {
-        request()->offsetSet('payload', $uid);
+        request()->offsetSet('payload_uid', $payload['uid']);
+        request()->offsetSet('payload_jti', $payload['jti']);
+    }
+
+    /**
+     * 设置黑名单
+     * @param $jti
+     * @param string $type
+     */
+    public function setBlacklist($jti, $type = 'access')
+    {
+        $expire_time = 0;
+        if ($type == 'access') {
+            $expire_time = $this->conf['access_token_expire_time'];
+        } else {
+            $expire_time = $this->conf['refresh_token_expire_time¬'];
+        }
+        Cache::put($this->cache_key['blacklist'] . $jti, $jti, $expire_time);
+    }
+
+    /**
+     * 获取黑名单
+     * @param $jti
+     * @return mixed
+     */
+    public function getBlacklist($jti)
+    {
+        return Cache::get($this->cache_key['blacklist'] . $jti);
     }
 
 }

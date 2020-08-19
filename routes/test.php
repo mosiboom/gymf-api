@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin\AdminUser;
 use App\Network\CURL;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
@@ -7,12 +8,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('1', function () {
     $abc = new \App\Services\AuthService('admin', 1);
+    dump(\Illuminate\Support\Str::random(16));
+    $a = \App\Services\EncryptService::makeAdminUser('123456');
+    dump($a);
     dump(request()->getHost());
     dump(request()->getHttpHost());
     dump($abc->generateGroup());
+    $admin = AdminUser::query()->find(1);
+    dump($admin);
 });
 Route::get('2', function () {
-    return ReturnCorrect(AuthService::getUserIdFromRequest());
+    return ReturnCorrect([
+        'uid' => AuthService::getUserIdFromRequest(),
+        'jti' => AuthService::getJtiFromRequest()
+    ]);
 })->middleware('admin.auth');
 Route::get('3', function () {
     $routes = Route::getRoutes()->get();
@@ -122,3 +131,4 @@ Route::post('api', function (Request $request) {
 Route::get('api', function () {
     return view('testApi');
 });
+

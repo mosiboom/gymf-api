@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>工业魔方开放接口</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+{{--        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">--}}
 
         <!-- Styles -->
         <style>
@@ -45,7 +45,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 74px;
             }
 
             .links > a {
@@ -81,18 +81,18 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    工业魔方开放接口
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://laravel.com/docs">官网入口</a>
+                    <a href="https://laracasts.com">合作联系</a>
+                    <a href="https://laravel-news.com">联系开发者</a>
+                    <a href="https://blog.laravel.com">关于开发者</a>
+                    <a href="https://nova.laravel.com">关于我们</a>
+{{--                    <a href="https://forge.laravel.com">Forge</a>--}}
+{{--                    <a href="https://vapor.laravel.com">Vapor</a>--}}
+                    <a href="https://github.com/laravel/laravel">开源地址</a>
                 </div>
             </div>
         </div>

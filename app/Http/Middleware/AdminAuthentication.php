@@ -33,8 +33,7 @@ class AdminAuthentication
         if (!$result['token']) {
             return response(ReturnAPI($result['code']))->setStatusCode(401);
         }
-        $uid = $result['payload']['uid'];
-        $Authorization::setUserIdFromRequest($uid);
+        $Authorization::setUserFromRequest($result['payload']);
         return $next($request);
     }
 }
