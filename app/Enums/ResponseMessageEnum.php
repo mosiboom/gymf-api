@@ -9,6 +9,7 @@ class ResponseMessageEnum
     # 数据库相关
     const DATABASE_SAVE_ERROR = ['code' => 2001, 'msg' => '数据插入或更新有误'];
     const DATABASE_DELETE_ERROR = ['code' => 2002, 'msg' => '数据删除有误'];
+    const DATABASE_DATA_NOT_FOUND = ['code' => 2003, 'msg' => '数据不存在'];
 
 
     # 用户认证相关
