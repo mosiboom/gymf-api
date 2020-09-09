@@ -62,3 +62,17 @@ if (!function_exists('getMillisecond')) {
     }
 }
 
+
+if (!function_exists('formatBytes')) {
+    function formatBytes($size, $unit = 'm', $precision = 2)
+    {
+        $units = [
+            'k' => 1, 'kb' => 1, 'K' => 1, 'KB' => 1,
+            'm' => 2, 'mb' => 2, 'M' => 2, 'MB' => 2,
+            'g' => 3, 'gb' => 3, 'G' => 3, 'GB' => 3,
+            't' => 4, 'tb' => 4, 'T' => 4, 'TB' => 4,
+        ];
+        $use_unit = $units[$unit];
+        return $size / round(pow(1024, $use_unit), $precision);
+    }
+}
