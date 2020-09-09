@@ -39,15 +39,19 @@ class BaseService
      * @param array $data
      * @param Model $model
      * @param string $id
+     * @param bool $return_id
      * @return array
      */
-    public static function baseSave($data, Model $model, $id = '')
+    public static function baseSave($data, Model $model, $id = '', $return_id = false)
     {
         try {
             if ($id) {
                 $res = $model::query()->where(['id' => $id])->update($data);
             } else {
                 $res = $model::query()->create($data);
+                if ($return_id) {
+                    $res = $res->id;
+                }
             }
             if ($res) return ReturnCorrect($res);
         } catch (QueryException $exception) {

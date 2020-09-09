@@ -43,18 +43,27 @@ class ApiCurd extends Command
         $same = $this->option('same');
         if ($same) {
             $this->makeService($this->tpl_name, $same . "/");
+            $this->info('Service create successfully!');
             exec("php artisan make:controller {$same}'/'{$this->tpl_name}Controller --api");
+            $this->info('Controller create successfully!');
             exec("php artisan make:model 'Models'/{$same}'/'{$this->tpl_name}");
+            $this->info('Model create successfully!');
             exec("php artisan tpl:request {$same}'/'{$this->tpl_name}Request");
+            $this->info('Request create successfully!');
+
         } else {
             $ctl = $this->option('ctl') ? "{$this->option('ctl')}/" : '';
             $model = $this->option('model') ? "{$this->option('model')}/" : 'Models/';
             $request = $this->option('request') ? "{$this->option('request')}/" : '';
             $service = $this->option('service') ? "{$this->option('service')}/" : '';
             $this->makeService($this->tpl_name, $service);
+            $this->info('Service create successfully!');
             exec("php artisan make:controller {$ctl}{$this->tpl_name}Controller --api");
+            $this->info('Controller create successfully!');
             exec("php artisan make:model {$model}{$this->tpl_name}");
+            $this->info('Model create successfully!');
             exec("php artisan tpl:request {$request}{$this->tpl_name}Request");
+            $this->info('Request create successfully!');
         }
 
 
@@ -91,7 +100,7 @@ class ApiCurd extends Command
             }
             $create_obj = str_replace($namespace, $replace_namespace, $create_obj);
         }
-        $rename_str = str_replace("TPLService", $rename[count($rename) - 1], $create_obj);
+        $rename_str = str_replace("TPLService", $rename[count($rename) - 1]."Service", $create_obj);
         file_put_contents($create_path, $rename_str);
     }
 }

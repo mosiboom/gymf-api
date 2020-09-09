@@ -13,6 +13,7 @@ class RequestTpl extends FormRequest
      */
     public function rules()
     {
+        $data = $this->data();
         switch ($this->method()) {
             case 'POST':
             case 'PUT':
@@ -31,5 +32,11 @@ class RequestTpl extends FormRequest
         return [
             "$this->router_undefined.required" => '路由不存在'
         ];
+    }
+
+    /*复用验证规则*/
+    private function data()
+    {
+        return [];
     }
 }

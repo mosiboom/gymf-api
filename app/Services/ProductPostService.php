@@ -3,21 +3,15 @@
 
 namespace App\Services;
 
+use App\Models\ProductPost;
+use App\Services\Admin\UserServices;
 
-use App\Models\BaseModel;
-
-class TPLService extends BaseService
+class ProductPostService extends BaseService
 {
-    /**
-     * @param array $input 查询条件
-     * @param array $hidden 需要隐藏的字段
-     * @return array
-     */
     public static function list($input = [], $hidden = [])
     {
         $list = self::getModel()::query()
             ->when(isset($input['skip']) && isset($input['limit']), function ($query) use ($input) {
-                /*分页*/
                 return $query->offset(intval($input['skip']))->limit($input['limit']);
             })
             ->orderBy('created_at', 'desc')
@@ -26,11 +20,6 @@ class TPLService extends BaseService
         return ReturnCorrect($list);
     }
 
-    /**
-     * @param $id
-     * @param array $hidden 需要隐藏的字段
-     * @return array
-     */
     public static function getOne($id, $hidden = [])
     {
         $item = self::getModel()::query()->find($id);
@@ -40,24 +29,23 @@ class TPLService extends BaseService
         return ReturnCorrect();
     }
 
-    /**
-     * 获取模型实例
-     * @return BaseModel
-     */
-    public static function getModel()
-    {
-        return new BaseModel();
-    }
-
-    /**
-     * 插入或保存
-     * @param array $input 插入的数据
-     * @param string $id 保存时必须传
-     * @return array
-     */
     public static function save($input, $id = '')
     {
-        $data = [];
-        return self::baseSave($data, self::getModel(), $id);
+        $data = [
+            'cat_id' => $input['cat_id'],
+            'title' => $input['title'],
+            'content' => $input['content'],
+            'cover' => $input['cover'],
+            'desc' => $input['desc'],
+            'status' => $input['status'],
+            'order' => $input['order'] ?? 0,
+            'operator' => UserServices::getCurrentUser('username')
+        ];
+        return self::baseSave($data, self::getModel(), $id, true);
+    }
+
+    public static function getModel()
+    {
+        return new ProductPost();
     }
 }

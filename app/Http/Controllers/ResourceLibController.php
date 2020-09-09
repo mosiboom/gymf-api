@@ -13,11 +13,12 @@ class ResourceLibController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param ResourceLibraryRequest $request
      * @return JsonResponse|Response|object
      */
-    public function index()
+    public function index(ResourceLibraryRequest $request)
     {
-        return $this->response(ResourceLibService::list());
+        return $this->response(ResourceLibService::list($request->all()));
     }
 
     /**

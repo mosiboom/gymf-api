@@ -18,6 +18,8 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::apiResource('resource', 'ResourceLibController');
     #资源分类
     Route::get('resource/category/get', 'ResourceLibController@category');
+    #产品内容
+    Route::apiResource('product', 'ProductPostController');
     #文件上传
     Route::post('upload/{key}/{original?}', 'CommonController@upload');
 });

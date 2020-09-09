@@ -14,15 +14,18 @@ class ResourceLibService extends BaseService
         4 => '其他'
     ];
 
-    public static function list()
+    public static function list($input = [], $hidden = [])
     {
         $list = ResourceLibrary::query()
+            ->when(isset($input['skip']) && isset($input['limit']), function ($query) use ($input) {
+                return $query->offset(intval($input['skip']))->limit($input['limit']);
+            })
             ->orderBy('created_at', 'desc')
             ->orderBy('updated_at', 'desc')
             ->get()->map(function ($item) {
                 $item->cat = self::CATEGORY_MAP[$item->cat_id];
                 return $item;
-            });
+            })->makeHidden($hidden);
         return ReturnCorrect($list);
     }
 
