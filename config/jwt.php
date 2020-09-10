@@ -12,7 +12,7 @@ return [
     ],
     /*管理员*/
     'admin' => [
-        'secret_key' => 'IlzzMTZAX6tycbkM',         #Str::random()生成
+        'secret_key' => env('APP_KEY', 'IlzzMTZAX6tycbkM'),         #Str::random()生成
         'secret_user' => 'Jasper_Admin',            #使用者
         'access_token_expire_time' => 86400,        #access_token过期时间
         'refresh_token_expire_time' => 86400,       #refresh_token过期时间

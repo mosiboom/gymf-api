@@ -31,8 +31,8 @@ class RequestTpl extends Command
      */
     public function __construct()
     {
-        $this->request_path = app_path('/Http/Requests/');
-        $this->tpl_path = app_path('/Http/Requests/RequestTpl.php');
+        $this->request_path = app_path('Http/Requests/');
+        $this->tpl_path = app_path('TPL/Request.php');
         parent::__construct();
     }
 
@@ -60,8 +60,8 @@ class RequestTpl extends Command
             }
             $create_obj = str_replace($this->namespace, $replace_namespace, $create_obj);
         }
-        $rename_str = str_replace("RequestTpl", $rename[count($rename) - 1], $create_obj);
+        $rename_str = str_replace("RequestTPL", $rename[count($rename) - 1], $create_obj);
         file_put_contents($create_path, $rename_str);
-        $this->info('request模板创建成功！');
+        $this->info('request template create successfully!');
     }
 }

@@ -3,91 +3,67 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\AdminUserRequest;
+use App\Models\Admin\AdminUser;
+use App\Services\Admin\UserServices;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param AdminUserRequest $request
+     * @return JsonResponse|Response|object
      */
-    public function index()
+    public function index(AdminUserRequest $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->response(UserServices::list($request->all()));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param AdminUserRequest $request
+     * @return JsonResponse|Response|object
      */
-    public function store(Request $request)
+    public function store(AdminUserRequest $request)
     {
-        //
+        return $this->response(UserServices::save($request->all()));
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|Response|object
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $this->response(UserServices::getOne($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param AdminUserRequest $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|Response|object
      */
-    public function update(Request $request, $id)
+    public function update(AdminUserRequest $request, $id)
     {
-        //
+        return $this->response(UserServices::save($request->all(), $id));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|Response|object
      */
     public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Refresh the access token for User
-     * */
-    public function refresh()
-    {
-
+        return $this->response(ReturnCorrect(AdminUser::destroy($id)));
     }
 }

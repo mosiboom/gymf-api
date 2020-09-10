@@ -39,21 +39,20 @@ class BaseService
      * @param array $data
      * @param Model $model
      * @param string $id
-     * @param bool $return_id
+     * @param string[] $hidden
      * @return array
      */
-    public static function baseSave($data, Model $model, $id = '', $return_id = false)
+    public static function baseSave($data, Model $model, $id = '', $hidden = [])
     {
         try {
             if ($id) {
-                $res = $model::query()->where(['id' => $id])->update($data);
+                $obj = $model->query()->find($id);
+                $obj->update($data);
+                $res = $obj;
             } else {
                 $res = $model::query()->create($data);
-                if ($return_id) {
-                    $res = $res->id;
-                }
             }
-            if ($res) return ReturnCorrect($res);
+            if ($res) return ReturnCorrect($res->makeHidden($hidden));
         } catch (QueryException $exception) {
             Log::channel('database')->error($exception->getMessage());
         }

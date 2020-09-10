@@ -11,7 +11,7 @@ class ApiCurd extends Command
      *
      * @var string
      */
-    protected $signature = 'tpl:APICurd {name} {--ctl=} {--model=} {--request=} {--service=} {--same=}';
+    protected $signature = 'tpl:curd {name} {--ctl=} {--model=} {--request=} {--service=} {--same=} {--api}';
 
     /**
      * The console command description.
@@ -41,10 +41,12 @@ class ApiCurd extends Command
     {
         $this->tpl_name = $this->argument('name');
         $same = $this->option('same');
+        $api = $this->option('api');
+        $api_option = $api ? '--api' : '';
         if ($same) {
-            $this->makeService($this->tpl_name, $same . "/");
+            exec("php artisan make:service {$same}'/'{$this->tpl_name}Service");
             $this->info('Service create successfully!');
-            exec("php artisan make:controller {$same}'/'{$this->tpl_name}Controller --api");
+            exec("php artisan make:controller {$same}'/'{$this->tpl_name}Controller ${api_option}");
             $this->info('Controller create successfully!');
             exec("php artisan make:model 'Models'/{$same}'/'{$this->tpl_name}");
             $this->info('Model create successfully!');
@@ -56,51 +58,14 @@ class ApiCurd extends Command
             $model = $this->option('model') ? "{$this->option('model')}/" : 'Models/';
             $request = $this->option('request') ? "{$this->option('request')}/" : '';
             $service = $this->option('service') ? "{$this->option('service')}/" : '';
-            $this->makeService($this->tpl_name, $service);
+            exec("php artisan make:service {$service}{$this->tpl_name}Service");
             $this->info('Service create successfully!');
-            exec("php artisan make:controller {$ctl}{$this->tpl_name}Controller --api");
+            exec("php artisan make:controller {$ctl}{$this->tpl_name}Controller ${api_option}");
             $this->info('Controller create successfully!');
             exec("php artisan make:model {$model}{$this->tpl_name}");
             $this->info('Model create successfully!');
             exec("php artisan tpl:request {$request}{$this->tpl_name}Request");
             $this->info('Request create successfully!');
         }
-
-
-    }
-
-    /**
-     * 生成service层
-     * @param $name
-     * @param $service
-     */
-    public function makeService($name, $service)
-    {
-        $name = $service . $name;
-        $request_path = app_path('/Services/');
-        $tpl_path = app_path('/Services/TPLService.php');
-        $namespace = "namespace App\Services";
-        $create_path = $request_path . $name . 'Service.php';
-        $rename = explode('/', $name);
-        $count = count($rename);
-        $dir = str_replace($rename[$count - 1], '', $request_path . $name);
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
-        }
-        if (!is_dir($request_path . $service)) {
-            mkdir($request_path . $service, 0777, true);
-        }
-        copy($tpl_path, $create_path);
-        $create_obj = file_get_contents($create_path);
-        if ($count > 1) {
-            $replace_namespace = $namespace;
-            foreach ($rename as $k => $v) {
-                if ($count - 1 == $k) break;
-                $replace_namespace .= "\\" . $v;
-            }
-            $create_obj = str_replace($namespace, $replace_namespace, $create_obj);
-        }
-        $rename_str = str_replace("TPLService", $rename[count($rename) - 1]."Service", $create_obj);
-        file_put_contents($create_path, $rename_str);
     }
 }
