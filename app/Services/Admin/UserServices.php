@@ -38,7 +38,7 @@ class UserServices extends BaseService
      * @param array $hidden 需要隐藏的字段
      * @return array
      */
-    public static function list($input = [], $hidden = ['password'])
+    public static function list($input = [], $hidden = ['password', 'remember_token'])
     {
         $list = self::getModel()::query()
             ->when(isset($input['skip']) && isset($input['limit']), function ($query) use ($input) {
@@ -56,7 +56,7 @@ class UserServices extends BaseService
      * @param array $hidden 需要隐藏的字段
      * @return array
      */
-    public static function getOne($id, $hidden = ['password'])
+    public static function getOne($id, $hidden = ['password', 'remember_token'])
     {
         $item = self::getModel()::query()->find($id);
         if ($item) {
@@ -91,7 +91,7 @@ class UserServices extends BaseService
         if ($id) {
             unset($data['username']);
         }
-        return self::baseSave($data, self::getModel(), $id, ['password']);
+        return self::baseSave($data, self::getModel(), $id, ['password', 'remember_token']);
     }
 
 }

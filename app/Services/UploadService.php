@@ -156,7 +156,7 @@ class UploadService
         $this->path = $this->file->storeAs("public/{$this->key}/{$time}", $this->name);
 
         return ReturnCorrect([
-            'result' => Storage::url($this->path),
+            'path' => Storage::url($this->path),
             'name' => $this->getName(),
             'extension' => $this->getExtension()
         ]);
