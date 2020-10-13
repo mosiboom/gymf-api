@@ -77,8 +77,14 @@ class SiteCategoryService extends BaseService
         if ($id == 0) {
             return ReturnCorrect(SiteCategory::query()->where('pid', $id)->orderByDesc('created_at')->get());
         }
-        $data['root'] = SiteCategory::query()->find($id);
-        $data['children'] = SiteCategory::query()->where('pid', $id)->get();
+        $one = SiteCategory::query()->find($id);
+        if ($one->pid == 0) {
+            $data['root'] = $one;
+            $data['children'] = SiteCategory::query()->where('pid', $id)->get();
+            return ReturnCorrect($data);
+        }
+        $data['children'] = $one;
+        $data['root'] = SiteCategory::query()->where('id', $one->pid)->get();
         return ReturnCorrect($data);
     }
 
