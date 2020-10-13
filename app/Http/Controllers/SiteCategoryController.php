@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SiteCategoryRequest;
+use App\Models\SiteCategory;
 use App\Services\SiteCategoryService;
 use Illuminate\Http\JsonResponse;
 
@@ -15,7 +16,7 @@ class SiteCategoryController extends Controller
      */
     public function index()
     {
-        return $this->response(SiteCategoryService::getDataById());
+        return $this->response(ReturnCorrect(SiteCategory::all()));
     }
 
     /**
