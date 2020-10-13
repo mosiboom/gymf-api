@@ -18,7 +18,7 @@ class ProductPostController extends Controller
      */
     public function index(ProductPostRequest $request)
     {
-        return $this->response(ProductPostService::list($request->all()));
+        return $this->response(ProductPost::all());
     }
 
     /**

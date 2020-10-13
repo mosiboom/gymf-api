@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Admin\LoginController@login');
 #登录检测
 Route::middleware(['admin.auth'])->group(function () {
+    #首页
+    Route::get('');
     #退出登录
     Route::get('logout', 'Admin\LoginController@logout');
     #刷新令牌

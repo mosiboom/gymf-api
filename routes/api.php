@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 #文件上传公共接口
-Route::group(['prefix' => 'upload','middleware'=>'admin.auth'], function () {
+/*Route::group(['prefix' => 'upload','middleware'=>'admin.auth'], function () {
     Route::post('/img', 'CommonController@uploadImg');
     Route::post('/file', 'CommonController@uploadFile');
-});
+});*/
