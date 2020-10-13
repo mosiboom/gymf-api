@@ -14,6 +14,9 @@ class ProductPostService extends BaseService
             ->when(isset($input['skip']) && isset($input['limit']), function ($query) use ($input) {
                 return $query->offset(intval($input['skip']))->limit($input['limit']);
             })
+            ->when(isset($input['cat_id']), function ($query) use ($input) {
+                return $query->where('cat_id', $input['cat_id']);
+            })
             ->orderBy('created_at', 'desc')
             ->orderBy('updated_at', 'desc')
             ->get()->makeHidden($hidden);
