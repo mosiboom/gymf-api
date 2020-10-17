@@ -25,3 +25,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });*/
 
 Route::get('home', 'HomeController@get');
+
+Route::get('category', 'IndexController@getCategory');

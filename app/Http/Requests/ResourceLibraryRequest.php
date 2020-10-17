@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 
+use Illuminate\Validation\Rule;
+
 class ResourceLibraryRequest extends FormRequest
 {
     /**
@@ -16,14 +18,14 @@ class ResourceLibraryRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'cat_id' => 'numeric|required',
+                    'cat_id' => ['numeric', 'required', Rule::in([1, 2, 3, 4])],
                     'url' => 'required',
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'cat_id' => 'numeric|required',
+                    'cat_id' => ['numeric', 'required', Rule::in([1, 2, 3, 4])],
                     'url' => 'required',
                     'remark' => 'string'
                 ];

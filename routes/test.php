@@ -16,6 +16,7 @@ Route::get('1', function () {
     dump($abc->generateGroup());
     $admin = AdminUser::query()->find(1);
     dump($admin);
+    dump(time());
 });
 Route::get('2', function () {
     return ReturnCorrect([
