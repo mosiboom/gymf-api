@@ -95,7 +95,7 @@ class SiteCategoryService extends BaseService
     /*获取轮播*/
     public static function getBanner($id, $hidden = [])
     {
-        $item = SiteCategory::query()->select()->find($id);
+        $item = SiteCategory::query()->where('status', 1)->find($id);
         if ($item) {
             return ReturnCorrect($item->banner_conf);
         }
