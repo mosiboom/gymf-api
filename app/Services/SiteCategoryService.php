@@ -43,8 +43,6 @@ class SiteCategoryService extends BaseService
             return ReturnAPI(ResponseMessageEnum::DATABASE_SAVE_ERROR);
         }
         return ReturnCorrect(['id' => $res->id]);
-
-
     }
 
     public static function save($form, $id)
