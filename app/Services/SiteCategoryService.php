@@ -86,9 +86,20 @@ class SiteCategoryService extends BaseService
         return ReturnCorrect($data);
     }
 
-    public static function getOne()
+    /*添加轮播*/
+    public static function addBanner($id, $config)
     {
+        return self::baseSave(['banner_conf' => $config], new SiteCategory, $id);
+    }
 
+    /*获取轮播*/
+    public static function getBanner($id, $hidden = [])
+    {
+        $item = SiteCategory::query()->select()->find($id);
+        if ($item) {
+            return ReturnCorrect($item->banner_conf);
+        }
+        return ReturnCorrect();
     }
 
 }

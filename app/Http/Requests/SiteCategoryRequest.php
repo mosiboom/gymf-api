@@ -9,10 +9,19 @@ use Illuminate\Validation\Validator;
 class SiteCategoryRequest extends FormRequest
 {
 
+    /**
+     * @var string|null
+     */
+    private $currentRouteName;
+    private $anotherRouteArray;
+
     public function __construct(array $query = [], array $request = [], array $attributes = [], array $cookies = [], array $files = [], array $server = [], $content = null)
     {
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
         $this->input('pid', 0);
+        $this->anotherRouteArray = [
+            'category.addBanner'
+        ];
     }
 
     /**
@@ -22,6 +31,10 @@ class SiteCategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $this->currentRouteName = $this->route()->getName();
+        if (in_array($this->currentRouteName, $this->anotherRouteArray)) {
+            return $this->anotherRules();
+        }
         switch ($this->method()) {
             case 'POST':
             {
@@ -72,6 +85,9 @@ class SiteCategoryRequest extends FormRequest
      */
     public function withValidator($validator)
     {
+        if (in_array($this->currentRouteName, $this->anotherRouteArray)) {
+            return $this->anotherRules();
+        }
         switch ($this->method()) {
             case 'POST':
             {
@@ -101,6 +117,20 @@ class SiteCategoryRequest extends FormRequest
             if (!$validator->validateRequired('pid', $this->input('pid'))) {
                 $validator->errors()->add('pid', 'pid不能为空');
                 $this->failedValidation($validator);
+            }
+        }
+    }
+
+    private function anotherRules()
+    {
+        switch ($this->currentRouteName) {
+            case 'category.addBanner':
+            {
+                return ['config'=>'required'];
+            }
+            default:
+            {
+                return [];
             }
         }
     }

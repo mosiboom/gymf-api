@@ -16,6 +16,7 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::apiResource('users', 'Admin\UserController');
     #分类管理
     Route::apiResource('category', 'SiteCategoryController');
+    Route::post('category/banner/{id}', 'SiteCategoryController@addBanner')->name('category.addBanner');
     #资源库
     Route::apiResource('resource', 'ResourceLibController');
     #资源分类

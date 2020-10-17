@@ -63,4 +63,12 @@ class SiteCategoryController extends Controller
     {
         return $this->response(SiteCategoryService::delete($id));
     }
+
+    /*
+     * Add SiteCategory banner config
+     * */
+    public function addBanner(SiteCategoryRequest $request, $id)
+    {
+        return $this->response(SiteCategoryService::addBanner($id, $request->input('config')));
+    }
 }

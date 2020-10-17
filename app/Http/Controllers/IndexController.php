@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SiteCategory;
+use App\Services\SiteCategoryService;
 
 class IndexController extends Controller
 {
@@ -13,9 +14,9 @@ class IndexController extends Controller
     }
 
     /*大分类文章链接轮播获取*/
-    public function getCategoryBanner()
+    public function getCategoryBanner($id)
     {
-
+        return $this->response(SiteCategoryService::getBanner($id));
     }
 
 
