@@ -23,6 +23,8 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::get('resource/category/get', 'ResourceLibController@category');
     #产品内容
     Route::apiResource('product', 'ProductPostController');
+    #团队成员管理
+    Route::apiResource('team','TeamMemberController');
     #文件上传
     Route::post('upload/{key}/{original?}', 'CommonController@upload');
 });
