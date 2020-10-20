@@ -4,6 +4,7 @@
 namespace App\Services;
 
 use App\Models\TeamMember;
+use App\Services\Admin\UserServices;
 use App\Services\BaseService;
 use App\Models\BaseModel;
 
@@ -72,6 +73,7 @@ class TeamMemberService extends BaseService
             'post' => $input['post'] ?? '暂无',
             'connect' => $input['connect'] ?? '暂无',
             'status' => $input['status'] ?? 0,
+            'operator' => UserServices::getCurrentUser('username')
         ];
         return self::baseSave($data, self::getModel(), $id);
     }
