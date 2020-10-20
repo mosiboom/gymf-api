@@ -44,9 +44,9 @@ class TeamMemberRequest extends FormRequest
         return [
             'portrait' => 'required|max:100',
             'name' => 'required|max:50',
-            'sex' => [Rule::in([0, 1])],
-            'desc' => 'max:200',
+            'sex' => [Rule::in([0, 1]),'required'],
             'post' => 'max:50',
+            'connect' => 'max:30|required',
             'status' => [Rule::in([0, 1])],
         ];
     }

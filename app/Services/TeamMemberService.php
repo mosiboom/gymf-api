@@ -65,11 +65,12 @@ class TeamMemberService extends BaseService
     public static function save($input, $id = '')
     {
         $data = [
-            'portrait' => $input['avatar'],
+            'portrait' => $input['portrait'],
             'name' => $input['name'],
             'sex' => $input['sex'],
             'desc' => $input['desc'] ?? '暂无',
             'post' => $input['post'] ?? '暂无',
+            'connect' => $input['connect'] ?? '暂无',
             'status' => $input['status'] ?? 0,
         ];
         return self::baseSave($data, self::getModel(), $id);
