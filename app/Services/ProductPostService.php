@@ -57,9 +57,22 @@ class ProductPostService extends BaseService
         return new ProductPost();
     }
 
-    # 获取嫡女
-    public static function detailAndRecommendByAPI()
+    # 对外接口：获取文章详情和推荐数据
+    public static function detailAndRecommendByAPI($id, $random_num = 5)
     {
-
+        $item = self::getModel()::query()->where('status', 1)->find($id);
+        if ($item) {
+            $others = self::getModel()::query()
+                ->inRandomOrder()->take($random_num)
+                ->where('status', 1)
+                ->get()->map(function ($item) {
+                    $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
+                    return $item;
+                })->makeHidden(['operator', 'desc', 'status', 'order']);
+            return ReturnCorrect([
+                'product' => $item->makeHidden(['operator', 'status', 'order']),
+                'others' => $others]);
+        }
+        return ReturnAPI();
     }
 }

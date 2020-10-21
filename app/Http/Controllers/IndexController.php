@@ -28,9 +28,9 @@ class IndexController extends Controller
     }
 
     /*获取文章详情页*/
-    public function getPostDetail(){
-
-        return $this->response();
+    public function getPostDetail($id, $random_num = 5)
+    {
+        return $this->response(ProductPostService::detailAndRecommendByAPI($id, $random_num));
     }
 
 }
