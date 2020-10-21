@@ -16,6 +16,7 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::apiResource('users', 'Admin\UserController');
     #分类管理
     Route::apiResource('category', 'SiteCategoryController');
+    #添加前端分类轮播
     Route::post('category/banner/{id}', 'SiteCategoryController@addBanner')->name('category.addBanner');
     #资源库
     Route::apiResource('resource', 'ResourceLibController');
@@ -24,8 +25,10 @@ Route::middleware(['admin.auth'])->group(function () {
     #产品内容
     Route::apiResource('product', 'ProductPostController');
     #团队成员管理
-    Route::apiResource('team','TeamMemberController');
+    Route::apiResource('team', 'TeamMemberController');
     #文件上传
     Route::post('upload/{key}/{original?}', 'CommonController@upload');
+    #留言管理
+    Route::apiResource('contacts', 'UserContactsController');
 });
 

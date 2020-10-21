@@ -6,6 +6,8 @@ class ResponseMessageEnum
     const API_RETURN_SUCCESS = ['code' => 0, 'msg' => '接口返回成功'];
     const API_PARAM_ERROR = ['code' => 1001, 'msg' => '接口参数有误'];
     const SERVER_ERROR = ['code' => 1002, 'msg' => '服务器有误'];
+    const FREQUENT_OPERATION = ['code' => 1003, 'msg' => '操作过于频繁'];
+
     # 数据库相关
     const DATABASE_SAVE_ERROR = ['code' => 2001, 'msg' => '数据插入或更新有误'];
     const DATABASE_DELETE_ERROR = ['code' => 2002, 'msg' => '数据删除有误'];

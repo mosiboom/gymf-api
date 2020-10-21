@@ -14,17 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-#文件上传公共接口
-/*Route::group(['prefix' => 'upload','middleware'=>'admin.auth'], function () {
-    Route::post('/img', 'CommonController@uploadImg');
-    Route::post('/file', 'CommonController@uploadFile');
-});*/
-
+#首页配置
 Route::get('home', 'HomeController@get');
-
+#分类配置
 Route::get('category', 'IndexController@getCategory');
+#大分类轮播
 Route::get('category/banner/{id}', 'IndexController@getCategoryBanner');
+#留言
+Route::post('user/connect', 'UserContactsController@store');
