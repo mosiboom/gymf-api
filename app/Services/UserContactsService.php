@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Enums\ResponseMessageEnum;
 use App\Models\BaseModel;
+use App\Models\UserContacts;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
@@ -49,7 +50,7 @@ class UserContactsService extends BaseService
      */
     public static function getModel()
     {
-        return new BaseModel();
+        return new UserContacts();
     }
 
     /**

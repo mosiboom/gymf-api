@@ -4,6 +4,7 @@
 namespace App\Services;
 
 use App\Models\ProductPost;
+use App\Models\SiteCategory;
 use App\Services\Admin\UserServices;
 
 class ProductPostService extends BaseService
@@ -17,9 +18,13 @@ class ProductPostService extends BaseService
             ->when(isset($input['cat_id']), function ($query) use ($input) {
                 return $query->where('cat_id', $input['cat_id']);
             })
-            ->orderBy('created_at', 'desc')
+            ->orderBy('order', 'desc')
             ->orderBy('updated_at', 'desc')
-            ->get()->makeHidden($hidden);
+            ->orderBy('created_at', 'desc')
+            ->get()->map(function ($item) {
+                $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
+                return $item;
+            })->makeHidden($hidden);
         return ReturnCorrect($list);
     }
 
@@ -50,5 +55,11 @@ class ProductPostService extends BaseService
     public static function getModel()
     {
         return new ProductPost();
+    }
+
+    # 获取嫡女
+    public static function detailAndRecommendByAPI()
+    {
+
     }
 }

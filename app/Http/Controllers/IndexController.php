@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductPost;
 use App\Models\SiteCategory;
+use App\Services\ProductPostService;
 use App\Services\SiteCategoryService;
 
 class IndexController extends Controller
@@ -19,5 +21,16 @@ class IndexController extends Controller
         return $this->response(SiteCategoryService::getBanner($id));
     }
 
+    /*获取文章列表*/
+    public function getPostList($cat_id)
+    {
+        return $this->response(ProductPostService::list(['cat_id' => $cat_id], ['operator', 'desc', 'status', 'order']));
+    }
+
+    /*获取文章详情页*/
+    public function getPostDetail(){
+
+        return $this->response();
+    }
 
 }

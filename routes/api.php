@@ -22,3 +22,5 @@ Route::get('category', 'IndexController@getCategory');
 Route::get('category/banner/{id}', 'IndexController@getCategoryBanner');
 #留言
 Route::post('user/connect', 'UserContactsController@store');
+#前台文章数据
+Route::get('product/get/{cat_id}', 'IndexController@getPostList');
