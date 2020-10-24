@@ -33,13 +33,14 @@ class ProductPostRequest extends FormRequest
     public function data()
     {
         return [
-            'cat_id' => ['numeric', 'required', 'exists:App\Models\SiteCategory,id'],
+            'cat_id' => ['numeric', 'exists:App\Models\SiteCategory,id'],
             'title' => 'required|max:100',
             'content' => 'required',
             'cover' => 'required',
             'desc' => 'required|max:150',
             'status' => ['numeric', 'required', Rule::in([0, 1])],
-            'order' => 'numeric|max:11'
+            'order' => 'numeric|max:11',
+            'type' => [Rule::in([1, 2, 3])]
         ];
     }
 

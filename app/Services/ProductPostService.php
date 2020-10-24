@@ -9,6 +9,12 @@ use App\Services\Admin\UserServices;
 
 class ProductPostService extends BaseService
 {
+    const TYPE_MAP = [
+        1 => '文章',
+        2 => '新闻',
+        3 => '介绍'
+    ];
+
     public static function list($input = [], $hidden = [])
     {
         $list = self::getModel()::query()
@@ -23,6 +29,7 @@ class ProductPostService extends BaseService
             ->orderBy('created_at', 'desc')
             ->get()->map(function ($item) {
                 $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
+                $item->type_map = self::TYPE_MAP[$item->type];
                 return $item;
             })->makeHidden($hidden);
         return ReturnCorrect($list);
@@ -47,8 +54,12 @@ class ProductPostService extends BaseService
             'desc' => $input['desc'],
             'status' => $input['status'],
             'order' => $input['order'] ?? 0,
+            'type' => $input['type'] ?? 1,
             'operator' => UserServices::getCurrentUser('username')
         ];
+        if ($data['type'] != 1) {
+            $data['cat_id'] = '';
+        }
         return self::baseSave($data, self::getModel(), $id, ['content']);
     }
 
