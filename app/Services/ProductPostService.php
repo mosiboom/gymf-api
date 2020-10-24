@@ -68,7 +68,7 @@ class ProductPostService extends BaseService
                 ->get()->map(function ($item) {
                     $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
                     return $item;
-                })->makeHidden(['operator', 'desc', 'status', 'order']);
+                })->makeHidden(['operator', 'content', 'status', 'order']);
             return ReturnCorrect([
                 'product' => $item->makeHidden(['operator', 'status', 'order']),
                 'others' => $others]);

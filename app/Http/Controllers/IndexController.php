@@ -24,7 +24,7 @@ class IndexController extends Controller
     /*获取文章列表*/
     public function getPostList($cat_id)
     {
-        return $this->response(ProductPostService::list(['cat_id' => $cat_id], ['operator', 'desc', 'status', 'order']));
+        return $this->response(ProductPostService::list(['cat_id' => $cat_id], ['operator', 'content', 'status', 'order']));
     }
 
     /*获取文章详情页*/

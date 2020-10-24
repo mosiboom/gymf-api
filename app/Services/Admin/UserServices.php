@@ -38,8 +38,10 @@ class UserServices extends BaseService
      * @param array $hidden 需要隐藏的字段
      * @return array
      */
-    public static function list($input = [], $hidden = ['password', 'remember_token'])
+    public static function list($input = [], $hidden = [])
     {
+        $_hidden = ['password', 'remember_token'];
+        $hidden = array_merge($hidden, $_hidden);
         $list = self::getModel()::query()
             ->when(isset($input['skip']) && isset($input['limit']), function ($query) use ($input) {
                 /*分页*/
