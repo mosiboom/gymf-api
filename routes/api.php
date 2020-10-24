@@ -25,4 +25,8 @@ Route::post('user/connect', 'UserContactsController@store');
 #前台文章数据
 Route::get('product/{cat_id}', 'IndexController@getPostList');
 #前台文章数据详情
-Route::get('product/get/{id}/{random_num?}', 'IndexController@getPostDetail');
+Route::get('product/get/{id}/{random_num?}/{type?}', 'IndexController@getPostDetail');
+#新闻列表
+Route::get('news', 'IndexController@getNewsList');
+#介绍列表
+Route::get('introduce', 'IndexController@getIntroduceList');

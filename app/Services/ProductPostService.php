@@ -24,6 +24,12 @@ class ProductPostService extends BaseService
             ->when(isset($input['cat_id']), function ($query) use ($input) {
                 return $query->where('cat_id', $input['cat_id']);
             })
+            ->when(isset($input['type']), function ($query) use ($input) {
+                return $query->where('type', $input['type']);
+            })
+            ->when(isset($input['status']), function ($query) use ($input) {
+                return $query->where('status', $input['status']);
+            })
             ->orderBy('order', 'desc')
             ->orderBy('updated_at', 'desc')
             ->orderBy('created_at', 'desc')
@@ -59,6 +65,10 @@ class ProductPostService extends BaseService
         ];
         if ($data['type'] != 1) {
             $data['cat_id'] = '';
+        } else {
+            if (!isset($data['cat_id'])) {
+                return ReturnAPI();
+            }
         }
         return self::baseSave($data, self::getModel(), $id, ['content']);
     }
@@ -69,15 +79,18 @@ class ProductPostService extends BaseService
     }
 
     # 对外接口：获取文章详情和推荐数据
-    public static function detailAndRecommendByAPI($id, $random_num = 5)
+    public static function detailAndRecommendByAPI($id, $random_num = 5, $type = 1)
     {
         $item = self::getModel()::query()->where('status', 1)->find($id);
         if ($item) {
             $others = self::getModel()::query()
                 ->inRandomOrder()->take($random_num)
                 ->where('status', 1)
+                ->where('type', $type)
                 ->get()->map(function ($item) {
-                    $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
+                    if ($item->cat_id) {
+                        $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
+                    }
                     return $item;
                 })->makeHidden(['operator', 'content', 'status', 'order']);
             return ReturnCorrect([
@@ -86,4 +99,8 @@ class ProductPostService extends BaseService
         }
         return ReturnAPI();
     }
+
+    /*获取介绍列表（包括详情）*/
+
+
 }
