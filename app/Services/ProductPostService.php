@@ -36,6 +36,7 @@ class ProductPostService extends BaseService
             ->get()->map(function ($item) {
                 $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
                 $item->type_map = self::TYPE_MAP[$item->type];
+                $item->publish_at = isset($item->publish_at) ?date('Y-m-d H:i'): null;
                 return $item;
             })->makeHidden($hidden);
         return ReturnCorrect($list);
@@ -65,6 +66,9 @@ class ProductPostService extends BaseService
         ];
         if ($data['type'] != 1) {
             $data['cat_id'] = '';
+            if ($data['type'] == 2) {
+                $data['publish_at'] = $input['publish'] ?? time();
+            }
         } else {
             if (!isset($data['cat_id'])) {
                 return ReturnAPI();
@@ -91,6 +95,7 @@ class ProductPostService extends BaseService
                     if ($item->cat_id) {
                         $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
                     }
+                    $item->publish_at = isset($item->publish_at) ?date('Y-m-d H:i'): null;
                     return $item;
                 })->makeHidden(['operator', 'content', 'status', 'order']);
             return ReturnCorrect([
