@@ -65,7 +65,8 @@ class ProductPostService extends BaseService
             'operator' => UserServices::getCurrentUser('username')
         ];
         if ($data['type'] != 1) {
-            $data['cat_id'] = '';
+            //$data['cat_id'] = '';
+            unset($data['cat_id']);
             if ($data['type'] == 2) {
                 $data['publish_at'] = $input['publish'] ?? time();
             }
