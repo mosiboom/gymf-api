@@ -36,7 +36,7 @@ class ProductPostService extends BaseService
             ->get()->map(function ($item) {
                 $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
                 $item->type_map = self::TYPE_MAP[$item->type];
-                $item->publish_at = isset($item->publish_at) ?date('Y-m-d H:i'): null;
+                $item->publish_at = isset($item->publish_at) ? date('Y-m-d H:i') : null;
                 return $item;
             })->makeHidden($hidden);
         return ReturnCorrect($list);
@@ -54,7 +54,7 @@ class ProductPostService extends BaseService
     public static function save($input, $id = '')
     {
         $data = [
-            'cat_id' => $input['cat_id'],
+            'cat_id' => $input['cat_id'] ?? '',
             'title' => $input['title'],
             'content' => $input['content'],
             'cover' => $input['cover'],
@@ -95,7 +95,7 @@ class ProductPostService extends BaseService
                     if ($item->cat_id) {
                         $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
                     }
-                    $item->publish_at = isset($item->publish_at) ?date('Y-m-d H:i'): null;
+                    $item->publish_at = isset($item->publish_at) ? date('Y-m-d H:i') : null;
                     return $item;
                 })->makeHidden(['operator', 'content', 'status', 'order']);
             return ReturnCorrect([
