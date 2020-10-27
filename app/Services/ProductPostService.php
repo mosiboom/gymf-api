@@ -34,7 +34,9 @@ class ProductPostService extends BaseService
             ->orderBy('updated_at', 'desc')
             ->orderBy('created_at', 'desc')
             ->get()->map(function ($item) {
-                $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
+                if ($item->cat_id){
+                    $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
+                }
                 $item->type_map = self::TYPE_MAP[$item->type];
                 $item->publish_at = isset($item->publish_at) ? date('Y-m-d H:i') : null;
                 return $item;

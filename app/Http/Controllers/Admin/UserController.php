@@ -66,4 +66,5 @@ class UserController extends Controller
     {
         return $this->response(ReturnCorrect(AdminUser::destroy($id)));
     }
+
 }
