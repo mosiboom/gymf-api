@@ -46,6 +46,7 @@ class ProductPostService extends BaseService
     {
         $item = self::getModel()::query()->find($id);
         if ($item) {
+            $item->publish_at = isset($item->publish_at) ? date('Y-m-d H:i') : null;
             return ReturnCorrect($item->makeHidden($hidden));
         }
         return ReturnCorrect();
