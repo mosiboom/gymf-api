@@ -27,6 +27,9 @@ class TeamMemberService extends BaseService
                 /*分页*/
                 return $query->offset(intval($input['skip']))->limit($input['limit']);
             })
+            ->when(isset($input['status']), function ($query) use ($input) {
+                return $query->where('status', $input['status']);
+            })
             ->orderBy('created_at', 'desc')
             ->orderBy('updated_at', 'desc')
             ->get()->makeHidden($hidden);

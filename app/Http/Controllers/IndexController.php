@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductPost;
 use App\Models\SiteCategory;
 use App\Services\ProductPostService;
 use App\Services\SiteCategoryService;
@@ -51,14 +50,17 @@ class IndexController extends Controller
     public function getIntroduceList()
     {
         $input = request()->all();
-        $input['type'] = 2;
+        $input['type'] = 3;
         $input['status'] = 1;
         return $this->response(ProductPostService::list($input, ['operator', 'status', 'order']));
     }
 
+    /*获取团队成员列表*/
     public function getTeamList()
     {
-        return $this->response(TeamMemberService::list([], ['operator', 'status', 'updated_at', 'created_at']));
+        $input = request()->all();
+        $input['status'] = 1;
+        return $this->response(TeamMemberService::list($input, ['operator', 'status', 'updated_at', 'created_at']));
     }
 
 }
