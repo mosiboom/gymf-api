@@ -6,6 +6,7 @@ use App\Models\ProductPost;
 use App\Models\SiteCategory;
 use App\Services\ProductPostService;
 use App\Services\SiteCategoryService;
+use App\Services\TeamMemberService;
 
 class IndexController extends Controller
 {
@@ -54,4 +55,10 @@ class IndexController extends Controller
         $input['status'] = 1;
         return $this->response(ProductPostService::list($input, ['operator', 'status', 'order']));
     }
+
+    public function getTeamList()
+    {
+        return $this->response(TeamMemberService::list([], ['operator', 'status', 'updated_at', 'created_at']));
+    }
+
 }

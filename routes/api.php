@@ -30,3 +30,5 @@ Route::get('product/get/{id}/{random_num?}/{type?}', 'IndexController@getPostDet
 Route::get('news', 'IndexController@getNewsList');
 #介绍列表
 Route::get('introduce', 'IndexController@getIntroduceList');
+#团队成员列表
+Route::get('team', 'IndexController@getTeamList');
