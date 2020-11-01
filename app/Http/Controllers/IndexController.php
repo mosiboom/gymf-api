@@ -15,7 +15,7 @@ class IndexController extends Controller
         return $this->response(ReturnCorrect(SiteCategory::query()
             ->where('status', 1)
             ->orderBy('order', 'desc')
-            ->get(['id', 'pid', 'name'])));
+            ->get(['id', 'pid', 'name','order'])));
     }
 
     /*大分类文章链接轮播获取*/
