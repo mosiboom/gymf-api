@@ -12,7 +12,10 @@ class IndexController extends Controller
     /*获取分类(直接返回所有分类)*/
     public function getCategory()
     {
-        return $this->response(ReturnCorrect(SiteCategory::query()->where('status', 1)->get(['id', 'pid', 'name'])));
+        return $this->response(ReturnCorrect(SiteCategory::query()
+            ->where('status', 1)
+            ->orderBy('order', 'desc')
+            ->get(['id', 'pid', 'name'])));
     }
 
     /*大分类文章链接轮播获取*/

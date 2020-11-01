@@ -20,6 +20,7 @@ class SiteCategoryService extends BaseService
                         'pid' => $form['pid'],
                         'operator' => UserServices::getCurrentUser('username'),
                         'status' => $form['status'] ?? 0,
+                        'order' => $form['order'] ?? 0,
                         'created_at' => time(),
                         'updated_at' => time()
                     ]);
@@ -36,7 +37,8 @@ class SiteCategoryService extends BaseService
             'name' => $form['name'],
             'pid' => $form['pid'] ?? 0,
             'operator' => UserServices::getCurrentUser('username'),
-            'status' => $form['status'] ?? 0
+            'status' => $form['status'] ?? 0,
+            'order' => $form['order'] ?? 0
         ];
         $res = SiteCategory::query()->create($data);
         if (!$res) {
@@ -50,7 +52,8 @@ class SiteCategoryService extends BaseService
         $data = [
             'name' => $form['name'],
             'operator' => UserServices::getCurrentUser('username'),
-            'status' => $form['status'] ?? 0
+            'status' => $form['status'] ?? 0,
+            'order' => $form['order'] ?? 0
         ];
         $res = SiteCategory::query()->where('id', $id)->update($data);
         if (!$res) {
