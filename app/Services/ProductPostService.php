@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Models\ProductPost;
 use App\Models\SiteCategory;
 use App\Services\Admin\UserServices;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductPostService extends BaseService
 {
@@ -35,7 +36,7 @@ class ProductPostService extends BaseService
             ->orderBy('created_at', 'desc')
             ->get()->map(function ($item) {
                 if ($item->cat_id){
-                    $item->cat_map = SiteCategory::query()->find($item->cat_id)->name;
+                    $item->cat_map=SiteCategory::query()->findOrFail($item->cat_id)->name;
                 }
                 $item->type_map = self::TYPE_MAP[$item->type];
                 $item->publish_at = isset($item->publish_at) ? date('Y-m-d H:i') : null;

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\ResponseMessageEnum;
+use App\Models\ProductPost;
 use App\Models\SiteCategory;
 use App\Services\Admin\UserServices;
 
@@ -67,6 +68,9 @@ class SiteCategoryService extends BaseService
         $commit = function () use ($id) {
             $id_array = SiteCategory::query()->where('pid', $id)->pluck('id')->toArray();
             array_push($id_array, $id);
+            foreach ($id_array as $v) {
+                ProductPost::query()->where("cat_id", $v)->delete();
+            }
             return SiteCategory::destroy($id_array);
         };
         return self::inTransaction($commit, ResponseMessageEnum::DATABASE_DELETE_ERROR);
