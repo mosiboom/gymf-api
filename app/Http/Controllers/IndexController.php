@@ -46,7 +46,7 @@ class IndexController extends Controller
         $input = request()->all();
         $input['type'] = 2;
         $input['status'] = 1;
-        return $this->response(ProductPostService::list($input, ['operator', 'content', 'status', 'order']));
+        return $this->response(ProductPostService::list($input, ['operator', 'status', 'order']));
     }
 
     /*获取介绍页列表*/
