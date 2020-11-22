@@ -72,7 +72,7 @@ class ProductPostService extends BaseService
             //$data['cat_id'] = '';
             unset($data['cat_id']);
             if ($data['type'] == 2) {
-                $data['publish_at'] = $input['publish'] ?? time();
+                $data['publish_at'] = $input['date'] ?? time();
             }
         } else {
             if (!isset($data['cat_id'])) {
