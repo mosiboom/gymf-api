@@ -83,13 +83,14 @@ class SiteCategoryService extends BaseService
             return ReturnCorrect(SiteCategory::query()->where('pid', $id)->orderByDesc('created_at')->get());
         }
         $one = SiteCategory::query()->find($id);
-        if ($one->pid == 0) {
+        $_pid = isset($one->pid) ? $one->pid : 0;
+        if ($_pid == 0) {
             $data['root'] = $one;
             $data['children'] = SiteCategory::query()->where('pid', $id)->get();
             return ReturnCorrect($data);
         }
         $data['children'] = $one;
-        $data['root'] = SiteCategory::query()->where('id', $one->pid)->get();
+        $data['root'] = SiteCategory::query()->where('id', $_pid)->get();
         return ReturnCorrect($data);
     }
 
