@@ -19,7 +19,7 @@ class SiteCategoryService extends BaseService
                     array_push($data, [
                         'name' => $v,
                         'pid' => $form['pid'],
-                        'operator' => UserServices::getCurrentUser('username'),
+                        'operator' => UserServices::getCurrentUser('name'),
                         'status' => $form['status'] ?? 0,
                         'order' => $form['order'] ?? 0,
                         'created_at' => time(),
@@ -37,7 +37,7 @@ class SiteCategoryService extends BaseService
         $data = [
             'name' => $form['name'],
             'pid' => $form['pid'] ?? 0,
-            'operator' => UserServices::getCurrentUser('username'),
+            'operator' => UserServices::getCurrentUser('name'),
             'status' => $form['status'] ?? 0,
             'order' => $form['order'] ?? 0
         ];
@@ -52,7 +52,7 @@ class SiteCategoryService extends BaseService
     {
         $data = [
             'name' => $form['name'],
-            'operator' => UserServices::getCurrentUser('username'),
+            'operator' => UserServices::getCurrentUser('name'),
             'status' => $form['status'] ?? 0,
             'order' => $form['order'] ?? 0
         ];

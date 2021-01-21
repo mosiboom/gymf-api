@@ -6,7 +6,6 @@ namespace App\Services;
 use App\Models\ProductPost;
 use App\Models\SiteCategory;
 use App\Services\Admin\UserServices;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductPostService extends BaseService
 {
@@ -35,8 +34,8 @@ class ProductPostService extends BaseService
             ->orderBy('updated_at', 'desc')
             ->orderBy('created_at', 'desc')
             ->get()->map(function ($item) {
-                if ($item->cat_id){
-                    $item->cat_map=SiteCategory::query()->findOrFail($item->cat_id)->name;
+                if ($item->cat_id) {
+                    $item->cat_map = SiteCategory::query()->findOrFail($item->cat_id)->name;
                 }
                 $item->type_map = self::TYPE_MAP[$item->type];
                 $item->publish_at = isset($item->publish_at) ? date('Y-m-d H:i') : null;
@@ -66,13 +65,13 @@ class ProductPostService extends BaseService
             'status' => $input['status'],
             'order' => $input['order'] ?? 0,
             'type' => $input['type'] ?? 1,
-            'operator' => UserServices::getCurrentUser('username')
+            'operator' => UserServices::getCurrentUser('name')
         ];
         if ($data['type'] != 1) {
             //$data['cat_id'] = '';
             unset($data['cat_id']);
             if ($data['type'] == 2) {
-                $data['publish_at'] = $input['date'] ?? time();
+                $data['publish_at'] = isset($input['date']) ? strtotime($input['date']) : time();
             }
         } else {
             if (!isset($data['cat_id'])) {

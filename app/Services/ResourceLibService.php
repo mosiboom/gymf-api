@@ -45,7 +45,7 @@ class ResourceLibService extends BaseService
             'cat_id' => $input['cat_id'],
             'url' => $input['url'],
             'remark' => $input['remark'] ?? '暂无',
-            'operator' => UserServices::getCurrentUser('username')
+            'operator' => UserServices::getCurrentUser('name')
         ];
         return self::baseSave($data, new ResourceLibrary, $id);
     }

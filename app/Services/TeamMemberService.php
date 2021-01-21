@@ -76,7 +76,7 @@ class TeamMemberService extends BaseService
             'post' => $input['post'] ?? '暂无',
             'connect' => $input['connect'] ?? '暂无',
             'status' => $input['status'] ?? 0,
-            'operator' => UserServices::getCurrentUser('username')
+            'operator' => UserServices::getCurrentUser('name')
         ];
         return self::baseSave($data, self::getModel(), $id);
     }
