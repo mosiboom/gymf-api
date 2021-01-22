@@ -48,7 +48,7 @@ class ProductPostService extends BaseService
     {
         $item = self::getModel()::query()->find($id);
         if ($item) {
-            $item->publish_at = isset($item->publish_at) ? date('Y-m-d H:i') : null;
+            $item->publish_at = isset($item->publish_at) ? date('Y-m-d H:i', $item->publish_at) : null;
             return ReturnCorrect($item->makeHidden($hidden));
         }
         return ReturnCorrect();
@@ -65,7 +65,7 @@ class ProductPostService extends BaseService
             'status' => $input['status'],
             'order' => $input['order'] ?? 0,
             'type' => $input['type'] ?? 1,
-            'operator' => UserServices::getCurrentUser('name')
+            'operator' => "123"
         ];
         if ($data['type'] != 1) {
             //$data['cat_id'] = '';
